@@ -1,17 +1,21 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import * as ReactDOMClient from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "./context/ThemeContext";
+import { DataProvider } from "./context/DataContext";
 
-ReactDOM.render(
+const root = ReactDOMClient.createRoot(document.getElementById("root"));
+
+root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider>
-        <App />
+        <DataProvider>
+          <App />
+        </DataProvider>
       </ThemeProvider>
     </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
