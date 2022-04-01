@@ -1,13 +1,22 @@
 .App {
   height: 100vh;
-  color: var(--text-secondary);
-  background-color: var(--text-primary);
   transition: 0.5s ease-in-out;
+}
+
+.dark-theme {
+  background-color: var(--primary-dark);
+  color: var(--secondary);
+}
+
+.light-theme {
+  background-color: var(--primary);
+  color: var(--secondary);
 }
 
 .container {
   height: 100%;
   top: 30%;
+  transition: 0.5s ease-in-out;
   border-top-left-radius: var(--scale-2);
   border-top-right-radius: var(--scale-2);
   padding: var(--scale-4) var(--scale-4) var(--scale-1);
@@ -19,7 +28,7 @@
 
 .light-theme > .container {
   background-color: var(--light-background);
-  color: var(--text-primary);
+  color: var(--primary);
 }
 
 .position-center {

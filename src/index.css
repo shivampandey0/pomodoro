@@ -2,8 +2,10 @@
   --light-background: #dfd7cb;
   --dark-background: #313131;
 
-  --text-primary: #ab0404;
-  --text-secondary: #e8d393;
+  --primary: #ab0404;
+  --primary-dark: #950202;
+  --primary-light: #df4d4db6;
+  --secondary: #e8d393;
   --white: #fff;
   --black: #212121;
 }
