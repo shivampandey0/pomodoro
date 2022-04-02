@@ -7,11 +7,11 @@ export const Actions = () => {
 
   return (
     <nav className="txt-end txt-md">
-      <FaGithub className="mx-4 my-4 cursor" />
+      <FaGithub className="mx-4  cursor" />
       {theme ? (
-        <FaSun onClick={toggleTheme} className="mx-4 my-4 cursor" />
+        <FaSun onClick={toggleTheme} className="mx-4 cursor" />
       ) : (
-        <FaMoon onClick={toggleTheme} className="mx-4 my-4 cursor" />
+        <FaMoon onClick={toggleTheme} className="mx-4  cursor" />
       )}
     </nav>
   );
