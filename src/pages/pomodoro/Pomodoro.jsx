@@ -4,12 +4,14 @@ import { useParams } from "react-router-dom";
 import { Button, Header } from "../../components";
 import { useData } from "../../context/DataContext";
 import { FaPlay, FaPause, FaRedo } from "react-icons/fa";
+import useTitle from "../../hooks/useTitle";
 
 export const Pomodoro = () => {
   const { taskID } = useParams();
   const { taskList } = useData();
   const [timer, setTimer] = useState(null);
   const [timerKey, setTimerKey] = useState(0);
+  const { setTitle } = useTitle("Marvel Pomodoro");
 
   const { title, description, time } = taskList.find(
     (item) => item.id === taskID
@@ -23,6 +25,10 @@ export const Pomodoro = () => {
 
     let _time = "" + mins + "m : " + (secs < 10 ? "0" : "");
     _time += "" + secs + "s";
+
+    if (timer) {
+      setTitle(`${_time} | ${title}`);
+    }
 
     return (
       <div className="txt-center" role="timer" aria-live="assertive">
