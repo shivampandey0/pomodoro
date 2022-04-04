@@ -3,11 +3,13 @@ import { FaPlusSquare } from "react-icons/fa";
 import { Welcome, Header, Modal, Task } from "../../components";
 import { v4 as uuid } from "uuid";
 import { useData } from "../../context/DataContext";
+import useTitle from "../../hooks/useTitle";
 
 export const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const [task, setTask] = useState({});
   const { taskList, setTaskList } = useData();
+  useTitle("Marvel Pomodoro");
 
   const toggleModal = () => setShowModal((prev) => !prev);
 
