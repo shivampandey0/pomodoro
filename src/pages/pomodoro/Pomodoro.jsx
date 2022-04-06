@@ -27,10 +27,6 @@ export const Pomodoro = () => {
   const timerSize = isDesktop ? 360 : isTablet ? 200 : 270;
   const strokeSize = isDesktop ? 24 : isTablet ? 12 : 18;
 
-  // console.log(timerSize);
-  // console.log(isDesktop);
-  // console.log(isTablet);
-
   const {
     title,
     description,
