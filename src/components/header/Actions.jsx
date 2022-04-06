@@ -7,7 +7,7 @@ export const Actions = () => {
   const { theme, toggleTheme } = useTheme();
   
   return (
-    <nav className="txt-end txt-md">
+    <nav className="txt-center txt-md actions">
       <FaGithub onClick={openGithub} className="mx-4 cursor" />
       <Link to={"/settings"}>
         <FaRegSun className="mx-4 cursor" />
