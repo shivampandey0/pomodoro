@@ -1,33 +1,25 @@
 import { useState } from "react";
 import { FaPlusSquare } from "react-icons/fa";
 import { Welcome, Header, Modal, Task } from "../../components";
-import { v4 as uuid } from "uuid";
 import { useData } from "../../context/DataContext";
 import useTitle from "../../hooks/useTitle";
 
 export const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const [task, setTask] = useState({});
-  const { taskList, setTaskList } = useData();
+  const { state, dispatch } = useData();
   useTitle("Marvel Pomodoro");
 
   const toggleModal = () => setShowModal((prev) => !prev);
 
   const addTask = () => {
-    setTaskList((prev) => [...prev, { ...task, id: uuid(), done: false }]);
+    dispatch({ type: "ADD", payload: task });
     toggleModal();
     setTask({});
   };
 
   const updateTask = () => {
-    setTaskList((prev) =>
-      prev.map((_task) => {
-        if (_task.id === task.id) {
-          return { ...task };
-        }
-        return _task;
-      })
-    );
+    dispatch({ type: "EDIT", payload: task });
     toggleModal();
     setTask({});
   };
@@ -37,8 +29,7 @@ export const Home = () => {
     toggleModal();
   };
 
-  const deleteTask = (id) =>
-    setTaskList((prev) => prev.filter((task) => task.id !== id));
+  const deleteTask = (id) => dispatch({ type: "DELETE", payload: id });
 
   return (
     <>
@@ -66,7 +57,7 @@ export const Home = () => {
           />
         </div>
         <div className="mx-8 my-8">
-          {taskList.map((task) => (
+          {state.tasks.map((task) => (
             <Task
               key={task.id}
               task={task}
