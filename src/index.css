@@ -20,10 +20,30 @@ a {
   color: inherit;
 }
 
+svg {
+  min-width: var(--size-6);
+  min-height: var(--size-6);
+}
+
 body {
   font-family: "Lato", sans-serif;
 }
 
 .cursor {
   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 80%;
+  }
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 60%;
+  }
 }
