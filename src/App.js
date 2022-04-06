@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { useTheme } from "./context/ThemeContext";
-import { Home, Pomodoro } from "./pages";
+import { Home, Pomodoro, Settings } from "./pages";
 
 function App() {
   const { theme } = useTheme();
@@ -9,6 +9,7 @@ function App() {
     <div className={`App ${theme ? "dark-theme" : "light-theme"}`}>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/settings" element={<Settings />} />
         <Route path="/pomodoro/:taskID" element={<Pomodoro />} />
       </Routes>
     </div>
