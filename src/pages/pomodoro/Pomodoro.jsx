@@ -6,6 +6,7 @@ import { useData } from "../../context/DataContext";
 import { FaPlay, FaPause, FaRedo } from "react-icons/fa";
 import useTitle from "../../hooks/useTitle";
 import { formatTime } from "../../utils/utils";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 export const Pomodoro = () => {
   const { taskID } = useParams();
@@ -15,6 +16,20 @@ export const Pomodoro = () => {
   const [timer, setTimer] = useState(null);
   const [timerKey, setTimerKey] = useState(0);
   const { setTitle } = useTitle("Marvel Pomodoro");
+
+  /**
+   * Media Queries
+   */
+
+  const isDesktop = useMediaQuery("(min-width:960px)");
+  const isTablet = useMediaQuery("(max-width:600px)");
+
+  const timerSize = isDesktop ? 360 : isTablet ? 200 : 270;
+  const strokeSize = isDesktop ? 24 : isTablet ? 12 : 18;
+
+  // console.log(timerSize);
+  // console.log(isDesktop);
+  // console.log(isTablet);
 
   const {
     title,
@@ -38,16 +53,16 @@ export const Pomodoro = () => {
   return (
     <>
       <Header />
-      <div className="container position-center top-10">
-        <div className="grid-2 my-4">
-          <section className="flex-column gap-1 align-cntr my-8 mx-8">
+      <div className="container w-80 mx-auto">
+        <div className="grid-2 gap-2 my-4">
+          <section className="flex-column gap-1 align-cntr mx-auto">
             <CountdownCircleTimer
               key={timerKey}
               isPlaying={timer}
               duration={timerState.time * 60}
               colors={["#950202", "#e8d393"]}
-              size={360}
-              strokeWidth={24}
+              size={timerSize}
+              strokeWidth={strokeSize}
               onComplete={() => resetTimer(shortBreak)}
               onUpdate={(remainingTime) =>
                 setTitle(`${formatTime(remainingTime)} | ${timerState.mode}`)
