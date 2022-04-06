@@ -10,7 +10,7 @@ export const Settings = () => {
   return (
     <>
       <Header />
-      <div className="container position-center top-10">
+      <div className="container w-80 mx-auto">
         <h2>Settings</h2>
         <div className="flex-column mx-8 my-8">
           <Slider

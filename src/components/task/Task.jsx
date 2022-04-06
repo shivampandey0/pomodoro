@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const Task = ({ task, editHandler, deleteHandler }) => {
   return (
-    <div className="flex-row align-cntr gap-1 justify-sb my-8 ">
+    <div className="task flex-row align-cntr gap-1 justify-sb my-4 mx-2 px-2 py-2">
       <Link
         to={`/pomodoro/${task.id}`}
         className="cursor grow-1 txt-md fw-normal"

@@ -36,7 +36,7 @@ export const Home = () => {
       <Header>
         <Welcome />
       </Header>
-      <div className="container position-center top-30">
+      <div className="container w-80 mx-auto">
         {showModal && (
           <Modal
             show={showModal}
@@ -56,7 +56,7 @@ export const Home = () => {
             className="txt-lg cursor"
           />
         </div>
-        <div className="mx-8 my-8">
+        <div className="tasklist">
           {state.tasks.map((task) => (
             <Task
               key={task.id}
