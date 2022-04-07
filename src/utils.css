@@ -6,6 +6,10 @@
   width: 80%;
 }
 
+.justify-end{
+  justify-content: flex-end;
+}
+
 .container {
   height: 100%;
   transition: 0.5s ease-in-out;
