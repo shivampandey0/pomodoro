@@ -1,4 +1,50 @@
-# Getting Started with Create React App
+<div align="center">
+
+# Marvel Pomodoro
+
+Marvel Pomodoro is an easy-to-use task management and pomodoro timer that will help you focus on your tasks with sufficient breaks!
+
+![Forks](https://img.shields.io/github/forks/shivampandey0/pomodoro)
+![Stars](https://img.shields.io/github/stars/shivampandey0/pomodoro)
+
+</div>
+
+---
+
+## Live Deployment
+
+Checkout the live app here: [Marvel Pomodoro](https://marvel-pomodoro.netlify.app/)
+
+---
+
+## Features:
+
+1. Homepage to add and edit tasks
+2. Toggle between Light/Dark mode
+3. Control timer, easily start, pause or restart sessions.
+4. Settings to change the Short and Long break time.
+
+---
+## How to use it?
+
+Follow these simple steps to use the app!
+
+<ul>
+<li>Step 1: Visit the app <a href="https://marvel-pomodoro.netlify.app/">here</a></li>
+<li>Step 2: Checkout the tasks page, where you can create a new task, or edit an existing task</li>
+<li>Step 3: Click on the specific task, which will redirect you to the Pomodoro session</li>
+<li>Step 4: When you're ready to start, click the Start button</li>
+<li>Step 5: At anytime you wish to stop/restart the clock, the appropriate buttons are provided</li>
+<li>Step 6: Once the focus session is done, the timer is updated with the break duration or alternatively you can take break between session too or choose the break timer, default is short break</li>
+</ul>
+
+---
+
+## App Demo
+
+![preview](./preview.gif)
+
+# How to run app locally
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
