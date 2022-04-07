@@ -12,12 +12,13 @@ export const Modal = ({
     <div className={showHideClassName}>
       <section className="modal-container">
         <h2 className="modal-title">Add Task</h2>
-        <section className="modal-info">
+        <form className="modal-info" onSubmit={handleSubmit}>
           <div className="input-group">
             <input
               id="title"
               className="input"
               type="text"
+              required={true}
               value={task.title}
               onChange={(e) =>
                 changeHandler((prev) => ({ ...prev, title: e.target.value }))
@@ -48,7 +49,9 @@ export const Modal = ({
               className="input"
               type="number"
               min={5}
+              max={120}
               value={task.time}
+              required={true}
               aria-label="title"
               onChange={(e) =>
                 changeHandler((prev) => ({
@@ -59,15 +62,15 @@ export const Modal = ({
               placeholder="Add Time in minutes"
             />
           </div>
-        </section>
-        <div className="modal-actions">
-          <button onClick={handleSubmit} className="btn btn-primary">
-            {`${task.id ? "Update" : "Add"}`}
-          </button>
-          <button onClick={handleClose} className="btn btn-outline">
-            Close
-          </button>
-        </div>
+          <div className="modal-actions justify-end">
+            <button type="submit" className="btn btn-primary">
+              {`${task.id ? "Update" : "Add"}`}
+            </button>
+            <button onClick={handleClose} className="btn btn-outline">
+              Close
+            </button>
+          </div>
+        </form>
       </section>
     </div>
   );

@@ -40,6 +40,17 @@ const reducerFunc = (state, { type, payload }) => {
         }),
       };
 
+    case "DONE":
+      return {
+        ...state,
+        tasks: [...state.tasks].map((_task) => {
+          if (_task.id === payload) {
+            return { ..._task, done: !_task.done };
+          }
+          return _task;
+        }),
+      };
+
     case "DELETE":
       return {
         ...state,

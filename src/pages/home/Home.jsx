@@ -30,6 +30,7 @@ export const Home = () => {
   };
 
   const deleteTask = (id) => dispatch({ type: "DELETE", payload: id });
+  const doneTask = (id) => dispatch({ type: "DONE", payload: id });
 
   return (
     <>
@@ -63,6 +64,7 @@ export const Home = () => {
               task={task}
               editHandler={() => editTask(task)}
               deleteHandler={() => deleteTask(task.id)}
+              checkHandler={() => doneTask(task.id)}
             />
           ))}
         </div>
