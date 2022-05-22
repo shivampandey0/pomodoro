@@ -48,7 +48,7 @@ export const Home = () => {
           />
         )}
         <div className="flex-row justify-sb align-cntr">
-          <h2>Todo dodo dodo dodoooo List</h2>
+          <h2>Tasks List</h2>
           <FaPlusSquare
             onClick={() => {
               setTask({});
