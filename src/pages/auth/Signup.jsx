@@ -79,6 +79,9 @@ export const Signup = () => {
               placeholder={'********'}
               changeHandler={onInput}
             />
+            {userInput?.password?.length < 8 && userInput?.password?.length > 0 && (
+              <FormError message={'Must be 8 characters long'} />
+            )}
 
             <Input
               label={'Confirm Password'}
@@ -93,7 +96,10 @@ export const Signup = () => {
             {error && <FormError message={'Something Went Wrong'} />}
 
             <button
-              disabled={confirmPass !== userInput.password}
+              disabled={
+                confirmPass !== userInput?.password ||
+                userInput?.password?.length < 8
+              }
               className='btn btn-primary btn-full my-4'
               type='submit'
             >

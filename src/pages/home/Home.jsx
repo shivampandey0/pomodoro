@@ -17,7 +17,7 @@ export const Home = () => {
   const [task, setTask] = useState({});
   const { state, dispatch } = useData();
   const {
-    authState: { user },
+    authState: { isLoggedIn, user },
   } = useAuth();
 
   useTitle('Marvel Pomodoro');
@@ -25,14 +25,12 @@ export const Home = () => {
   const toggleModal = () => setShowModal((prev) => !prev);
 
   const addTask = () => {
-    // dispatch({ type: 'ADD', payload: task });
     addTaskToFirestore(user?.uid, { ...task, done: false });
     toggleModal();
     setTask({});
   };
 
   const updateTask = () => {
-    // dispatch({ type: 'EDIT', payload: task });
     updateTaskToFirestore(user?.uid, task.id, task);
     toggleModal();
     setTask({});
@@ -42,9 +40,6 @@ export const Home = () => {
     setTask(() => task);
     toggleModal();
   };
-
-  // const deleteTask = (id) => dispatch({ type: 'DELETE', payload: id });
-  // const doneTask = (id) => dispatch({ type: 'DONE', payload: id });
 
   useEffect(() => {
     let unsub = null;
@@ -65,8 +60,6 @@ export const Home = () => {
     };
   }, [user]);
 
-  // console.log(state);
-
   return (
     <>
       <Header>
@@ -84,15 +77,23 @@ export const Home = () => {
         )}
         <div className='flex-row justify-sb align-cntr'>
           <h2>Tasks List</h2>
-          <FaPlusSquare
-            onClick={() => {
-              setTask({});
-              toggleModal();
-            }}
-            className='txt-lg cursor'
-          />
+          {isLoggedIn && (
+            <FaPlusSquare
+              onClick={() => {
+                setTask({});
+                toggleModal();
+              }}
+              className='txt-lg cursor'
+            />
+          )}
         </div>
         <div className='tasklist'>
+          {!isLoggedIn && (
+            <div className='txt-center txt-md'>Please Login to add tasks</div>
+          )}
+          {isLoggedIn && !state?.tasks.length && (
+            <div className='txt-center txt-md'>Add tasks</div>
+          )}
           {state.tasks.map((task) => (
             <Task
               key={task.id}
