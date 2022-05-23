@@ -2,6 +2,7 @@ import { FaMoon, FaSun, FaRegSun, FaUserCircle } from 'react-icons/fa';
 import { IoLogIn } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useData } from '../../context/DataContext';
 import { useTheme } from '../../context/ThemeContext';
 import { signOutUser } from '../../utils/auth-services';
 
@@ -10,12 +11,16 @@ export const Actions = () => {
   const {
     authState: { isLoggedIn },
   } = useAuth();
+  const { dispatch } = useData();
 
   return (
     <nav className='flex-row txt-center txt-md actions'>
       {isLoggedIn ? (
         <div
-          onClick={signOutUser}
+          onClick={() => {
+            signOutUser();
+            dispatch({ type: 'DELETE' });
+          }}
           className='flex-column align-cntr mx-4 cursor'
         >
           <IoLogIn size={28} />

@@ -1,25 +1,39 @@
-import { useState } from "react";
-import { FaPlusSquare } from "react-icons/fa";
-import { Welcome, Header, Modal, Task } from "../../components";
-import { useData } from "../../context/DataContext";
-import useTitle from "../../hooks/useTitle";
+import { collection, onSnapshot } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { FaPlusSquare } from 'react-icons/fa';
+import { Welcome, Header, Modal, Task } from '../../components';
+import { useAuth } from '../../context/AuthContext';
+import { useData } from '../../context/DataContext';
+import useTitle from '../../hooks/useTitle';
+import {
+  addTaskToFirestore,
+  deleteTask,
+  updateTaskToFirestore,
+} from '../../utils/db-services';
+import { db } from '../../utils/firebase-config';
 
 export const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const [task, setTask] = useState({});
   const { state, dispatch } = useData();
-  useTitle("Marvel Pomodoro");
+  const {
+    authState: { user },
+  } = useAuth();
+
+  useTitle('Marvel Pomodoro');
 
   const toggleModal = () => setShowModal((prev) => !prev);
 
   const addTask = () => {
-    dispatch({ type: "ADD", payload: task });
+    // dispatch({ type: 'ADD', payload: task });
+    addTaskToFirestore(user?.uid, { ...task, done: false });
     toggleModal();
     setTask({});
   };
 
   const updateTask = () => {
-    dispatch({ type: "EDIT", payload: task });
+    // dispatch({ type: 'EDIT', payload: task });
+    updateTaskToFirestore(user?.uid, task.id, task);
     toggleModal();
     setTask({});
   };
@@ -29,15 +43,36 @@ export const Home = () => {
     toggleModal();
   };
 
-  const deleteTask = (id) => dispatch({ type: "DELETE", payload: id });
-  const doneTask = (id) => dispatch({ type: "DONE", payload: id });
+  // const deleteTask = (id) => dispatch({ type: 'DELETE', payload: id });
+  // const doneTask = (id) => dispatch({ type: 'DONE', payload: id });
+
+  useEffect(() => {
+    let unsub = null;
+    const uid = user?.uid;
+    if (uid) {
+      const q = collection(db, 'pomodoro', uid, 'tasks');
+      unsub = onSnapshot(q, (qs) => {
+        const _lists = qs?.docs?.map((doc) => ({
+          id: doc?.id,
+          ...doc?.data(),
+        }));
+        dispatch({ type: 'ADD_TASKS', payload: _lists });
+      });
+    }
+
+    return () => {
+      unsub && unsub();
+    };
+  }, [user]);
+
+  // console.log(state);
 
   return (
     <>
       <Header>
         <Welcome />
       </Header>
-      <div className="container w-80 mx-auto">
+      <div className='container w-80 mx-auto'>
         {showModal && (
           <Modal
             show={showModal}
@@ -47,24 +82,29 @@ export const Home = () => {
             task={task}
           />
         )}
-        <div className="flex-row justify-sb align-cntr">
+        <div className='flex-row justify-sb align-cntr'>
           <h2>Tasks List</h2>
           <FaPlusSquare
             onClick={() => {
               setTask({});
               toggleModal();
             }}
-            className="txt-lg cursor"
+            className='txt-lg cursor'
           />
         </div>
-        <div className="tasklist">
+        <div className='tasklist'>
           {state.tasks.map((task) => (
             <Task
               key={task.id}
               task={task}
               editHandler={() => editTask(task)}
-              deleteHandler={() => deleteTask(task.id)}
-              checkHandler={() => doneTask(task.id)}
+              deleteHandler={() => deleteTask(user?.uid, task.id)}
+              checkHandler={(e) =>
+                updateTaskToFirestore(user?.uid, task.id, {
+                  ...task,
+                  done: e,
+                })
+              }
             />
           ))}
         </div>
