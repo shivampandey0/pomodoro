@@ -47,10 +47,19 @@ export const Home = () => {
     if (uid) {
       const q = collection(db, 'pomodoro', uid, 'tasks');
       unsub = onSnapshot(q, (qs) => {
-        const _lists = qs?.docs?.map((doc) => ({
-          id: doc?.id,
-          ...doc?.data(),
-        }));
+        const _lists = [];
+        qs?.docs?.forEach((doc) => {
+          const _task = {
+            id: doc?.id,
+            ...doc?.data(),
+          };
+
+          if (_task.done) {
+            _lists.push(_task);
+          } else {
+            _lists.unshift(_task);
+          }
+        });
         dispatch({ type: 'ADD_TASKS', payload: _lists });
       });
     }
