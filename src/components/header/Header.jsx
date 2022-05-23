@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { Actions } from "./Actions";
-// import { Welcome } from "./Welcome";
 
 export const Header = ({ children }) => {
   return (

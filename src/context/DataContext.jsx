@@ -1,5 +1,4 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
-import { v4 as uuid } from "uuid";
+import { createContext, useContext, useEffect, useReducer } from 'react';
 
 const DataContext = createContext();
 const useData = () => useContext(DataContext);
@@ -12,49 +11,55 @@ const initial = {
 
 const reducerFunc = (state, { type, payload }) => {
   switch (type) {
-    case "SHORT_BREAK":
+    case 'SHORT_BREAK':
       return {
         ...state,
         shortBreak: Number(payload),
       };
-    case "LONG_BREAK":
+    case 'LONG_BREAK':
       return {
         ...state,
         longBreak: Number(payload),
       };
 
-    case "ADD":
+    // case 'ADD':
+    //   return {
+    //     ...state,
+    //     tasks: [...state.tasks, { id: uuid(), done: false, ...payload }],
+    //   };
+
+    case 'ADD_TASKS':
       return {
         ...state,
-        tasks: [...state.tasks, { id: uuid(), done: false, ...payload }],
+        tasks: payload,
       };
 
-    case "EDIT":
-      return {
-        ...state,
-        tasks: [...state.tasks].map((_task) => {
-          if (_task.id === payload.id) {
-            return { ...payload };
-          }
-          return _task;
-        }),
-      };
+    // case 'EDIT':
+    //   return {
+    //     ...state,
+    //     tasks: [...state.tasks].map((_task) => {
+    //       if (_task.id === payload.id) {
+    //         return { ...payload };
+    //       }
+    //       return _task;
+    //     }),
+    //   };
 
-    case "DONE":
-      return {
-        ...state,
-        tasks: [...state.tasks].map((_task) => {
-          if (_task.id === payload) {
-            return { ..._task, done: !_task.done };
-          }
-          return _task;
-        }),
-      };
+    // case 'DONE':
+    //   return {
+    //     ...state,
+    //     tasks: [...state.tasks].map((_task) => {
+    //       if (_task.id === payload) {
+    //         return { ..._task, done: !_task.done };
+    //       }
+    //       return _task;
+    //     }),
+    //   };
 
-    case "DELETE":
+    case 'DELETE':
       return {
         ...state,
-        tasks: [...state.tasks].filter((item) => item.id !== payload),
+        tasks: [],
       };
     default:
       return state;
@@ -64,11 +69,11 @@ const reducerFunc = (state, { type, payload }) => {
 const DataProvider = ({ children }) => {
   const [state, dispatch] = useReducer(
     reducerFunc,
-    JSON.parse(localStorage.getItem("data")) ?? initial
+    JSON.parse(localStorage.getItem('data')) ?? initial
   );
 
   useEffect(() => {
-    localStorage.setItem("data", JSON.stringify(state));
+    localStorage.setItem('data', JSON.stringify(state));
   }, [state]);
   return (
     <DataContext.Provider value={{ state, dispatch }}>
